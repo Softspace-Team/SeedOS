@@ -41,6 +41,4 @@
 *.dwo
 
 .vscode
-natureos
-
 *.exe
