@@ -1,6 +1,7 @@
 #include "./src/console/shell.hpp"
 
-int main() {
+int main()
+{
    console::shell shell;
 
    shell.start();
