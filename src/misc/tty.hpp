@@ -5,11 +5,10 @@
 #include <string>
 #include <vector>
 #include <functional>
-#include <typeinfo> // only for now
 
 #include "../core/kconfig.hpp"
 #include "../core/klog.hpp"
-//#include "../misc/colorizer"
+#include "../misc/colorizer.hpp"
 
 namespace misc
 {
@@ -29,11 +28,11 @@ namespace misc
 
                 core::log(this->_prefix);
 
-                std::string userImput;
-                core::input(userImput);
+                std::string userInput;
+                core::input(userInput);
 
                 // DELETE THIS SHIT NOW
-                if (userImput == "sys") {
+                if (userInput == "sys") {
                     core::log(src::systemConfig());
                 } else {
                     core::log("I think you write something, but i can't read it for now :(\n");

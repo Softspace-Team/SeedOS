@@ -4,7 +4,8 @@
 
 #include <string>
 
-namespace misc {
+namespace misc
+{
     std::string colorizeFont (const std::string content, const ::size_t r, const ::size_t g, const ::size_t b)
     {
         return "\033[38;2;" + std::to_string(r) + ";" + std::to_string(g) + ";" + std::to_string(b) + "m" + content + "\033[0m";

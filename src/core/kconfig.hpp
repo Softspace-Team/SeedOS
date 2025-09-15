@@ -4,12 +4,12 @@
 
 #include <thread>
 #include <string>
+#include "../misc/colorizer.hpp"
 //#include "../console/shell.hpp"
-//#include "../misc/colorizer.hpp"
 
 namespace src
 {
-    //auto cores = std::thread::hardware_concurrency();
+    //auto threads = std::thread::hardware_concurrency();
 
     const std::string systemVersion = "0.00 - predev";
     const std::string systemName = "SeedOS";
@@ -17,13 +17,15 @@ namespace src
 
     std::string systemConfig() 
     {
-        std::string outputInfo = "OS: " + systemName + "\n";
-        outputInfo += "Release: " + systemVersion + "\n";
-        outputInfo += "Countributors: " + systemAuthors + "\n";
+        std::string outputInfo = "OS: " + misc::colorizeFont(systemName, 180, 180, 40) + "\n";
+        outputInfo += "Release: " + misc::colorizeFont(systemVersion, 180, 180, 40) + "\n";
+        outputInfo += "Countributors: " + misc::colorizeFont(systemAuthors, 180, 180, 40) + "\n\n";
+        outputInfo += misc::colorizeBackground("  ", 255, 0, 0) + misc::colorizeBackground("  ", 0, 255, 0) +  misc::colorizeBackground("  ", 0, 0, 255) + "\n";
+
         //outputInfo += "Uptime: " + std::to_string(hal::now_ms()/1000) + " s\n";
         //outputInfo += "Commands: " + std::to_string(shell::command_count()) + "\n";
         
-        //outputInfo += "Cores: " + std::to_string(cores ? cores : 1) + "\n";
+        //outputInfo += "Threads: " + std::to_string(threads ? threads : 1) + "\n"; // Working without system modules
 
         return outputInfo;
     }
