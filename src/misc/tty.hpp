@@ -5,8 +5,10 @@
 #include <string>
 #include <vector>
 #include <functional>
+#include <typeinfo> // only for now
 
-#include "../core/clog.hpp"
+#include "../core/kconfig.hpp"
+#include "../core/klog.hpp"
 //#include "../misc/colorizer"
 
 namespace misc
@@ -31,9 +33,14 @@ namespace misc
                 core::input(userImput);
 
                 // DELETE THIS SHIT NOW
-                core::log("I think you write something, but i can't read it for now :(\n");
-                core::log("\n");
+                if (userImput == "sys") {
+                    core::log(src::systemConfig());
+                } else {
+                    core::log("I think you write something, but i can't read it for now :(\n");
+                }
                 // DELETE THIS SHIT NOW
+
+                core::log("\n");
             }
         }
 

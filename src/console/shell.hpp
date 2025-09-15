@@ -1,14 +1,14 @@
-#if !defined(CONSOLE_H)
+#if !defined(SHELL_H)
 
-#define CONSOLE_H
+#define SHELL_H
 
 #include <string>
 #include <vector>
 #include <cstdint>
 
-#include "../core/clog.hpp"
+#include "../core/klog.hpp"
+#include "../core/kconfig.hpp"
 #include "../misc/tty.hpp"
-#include "../misc/system.hpp"
 
 namespace console
 {
