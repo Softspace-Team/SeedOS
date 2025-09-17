@@ -21,8 +21,6 @@ namespace src
         outputInfo += "Release: " + misc::colorizeFont(systemVersion, 180, 180, 40) + "\n";
         outputInfo += "Countributors: " + misc::colorizeFont(systemAuthors, 180, 180, 40) + "\n\n";
         outputInfo += misc::colorizeBackground("  ", 255, 0, 0) + misc::colorizeBackground("  ", 0, 255, 0) +  misc::colorizeBackground("  ", 0, 0, 255) + "\n";
-        outputInfo += "\n\n";
-        outputInfo += "Migalochka -> " + misc::colorizeBackground("         ", 255, 0, 0) + misc::colorizeBackground("  ", 255, 255, 255) +  misc::colorizeBackground("         ", 0, 0, 255) + "\n";
 
         //outputInfo += "Uptime: " + std::to_string(hal::now_ms()/1000) + " s\n";
         //outputInfo += "Commands: " + std::to_string(shell::command_count()) + "\n";
