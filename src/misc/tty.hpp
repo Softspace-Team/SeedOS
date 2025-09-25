@@ -2,22 +2,44 @@
 
 #define TTY_H
 
-#include <string>
 #include <vector>
+#include <string>
 #include <functional>
 
-#include "../core/kconfig.hpp"
 #include "../core/klog.hpp"
-#include "../misc/colorizer.hpp"
+#include "../misc/utilities.hpp"
 
 namespace misc
-{
+{   
+    struct Command
+    {
+        std::string command;
+        std::function<void(std::vector<std::string>)> executor;
+    };
+
     class tty
     {
     private:
+        std::vector<Command> _commands;
         std::string _prefix = "";
         bool _break = false;
     public:
+        void createSystemCommand(std::string command, std::function<void(std::vector<std::string>)> function)
+        {
+            int checkExists = this->checkSystemCommand(command);
+
+            if (checkExists != -1)
+            {
+                this->_commands.at(checkExists).executor = function;
+            }
+            else
+            {
+                Command newCommand = { command, function };
+
+                this->_commands.push_back(newCommand);
+            }
+        }
+
         void startSystem() 
         {
             while (true) 
@@ -31,16 +53,39 @@ namespace misc
                 std::string userInput;
                 core::input(userInput);
 
-                // DELETE THIS SHIT NOW
-                if (userInput == "sys") {
-                    core::log(src::systemConfig());
-                } else {
-                    core::log("I think you write something, but i can't read it for now :(\n");
+                std::vector<std::string> parsedCommand = misc::Split(userInput, " ");
+                int checkExists = this->checkSystemCommand(parsedCommand.at(0));
+
+                if (checkExists == -1)
+                {
+                    core::log("Command not found! Try `help` for more information.");
                 }
-                // DELETE THIS SHIT NOW
+                else
+                {
+                    Command command = this->_commands.at(checkExists);
+                    
+                    parsedCommand = misc::Delete<std::string>(parsedCommand, 0);
+
+                    command.executor(parsedCommand);
+                }
 
                 core::log("\n");
             }
+        }
+
+        int checkSystemCommand(std::string command)
+        {
+            for (int i = 0; i < this->_commands.size(); i++)
+            {
+                Command existsCommand = this->_commands.at(i);
+
+                if (existsCommand.command.compare(command) == 0)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
 
         void setShellPrefix(std::string prefix)

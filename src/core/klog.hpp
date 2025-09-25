@@ -5,17 +5,18 @@
 #include <string>
 #include <iostream>
 
-//#include "../misc/colorizer"
-
 namespace core
 {
-    void log(std::string content) {
+    void log(std::string content)
+    {
         std::cout << content;
     }
-    void input(std::string& imputContent) {
-        std::getline(std::cin, imputContent);
+    void input(std::string& inputContent)
+    {
+        std::getline(std::cin, inputContent);
     }
-    void clear() {
+    void clear()
+    {
         system("cls");
     }
 }
