@@ -4,38 +4,56 @@
 
 #include <vector>
 #include <string>
+#include <cctype>
 
 #include "../../core/klog.hpp"
 #include "../../misc/colorizer.hpp"
+#include "../../misc/utilities.hpp"
 
 namespace src
 {
     namespace command
     {
-        void systemHelp(std::vector<std::string> arguments)
+        struct Command
         {
-            if (arguments.size() == 0)
+            std::string name;
+            std::string description;
+        };
+        class help
+        {
+        private:
+            std::vector<Command> _commandRegistry;
+        public:
+            void commandRegister(const std::string& name, const std::string& description)
             {
-                core::log(misc::colorizeFont("List of all avaible commands (+ description)\n\n", 180, 180, 40));
-                core::log(misc::colorizeFont("  help command\n", 180, 180, 40));
-                core::log(misc::colorizeFont("  command /?      For more information on a specific command\n\n", 180, 180, 40));
-                core::log(misc::colorizeFont("?         List all available commands (without description).\n", 180, 180, 40));
-                core::log(misc::colorizeFont("SYSTEM    List all properties of system and computer.\n", 180, 180, 40));
-                core::log(misc::colorizeFont("SLEEP     Give system some time to relax.\n", 180, 180, 40));
-                core::log(misc::colorizeFont("CLEAR     Clear all commands history in kernel.\n", 180, 180, 40));
-                core::log(misc::colorizeFont("EXIT      Shutdown system.", 180, 180, 40));
+                this->_commandRegistry.push_back({name, description});
             }
-            else {
-                if (arguments.at(0).compare("/?") == 0)
+            void systemHelp(std::vector<std::string>& arguments)
+            {
+                if (arguments.empty())
                 {
-                    core::log(misc::colorizeFont("Provides Help information for SeedOS commands.\n\n", 180, 180, 40));
-                    core::log(misc::colorizeFont("HELP [command]\n\n", 180, 180, 40));
-                    core::log(misc::colorizeFont("  command - Display help information for this command.", 180, 180, 40));
+                    core::log("List of all available commands:\n");
+                    for (auto commandItem : this->_commandRegistry)
+                    {
+                        core::log(commandItem.name + " - " + commandItem.description + "\n");
+                    }
                 }
-                
-                //something else need here
+                else
+                {
+                    std::string target = arguments.at(0);
+                    for (auto commandItem : this->_commandRegistry)
+                    {
+                        if (target == misc::ToLowerString(commandItem.name))
+                        {
+                            core::log("Provides Help information for SeedOS commands.\n\n");
+                            core::log("    " + commandItem.name + " - " + commandItem.description + "\n");
+                            return;
+                        }
+                    }
+                    core::log("No help available for command: " + arguments.at(0) + "\n");
+                }
             }
-        }
+        };
     }
 }
 

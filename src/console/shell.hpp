@@ -10,9 +10,10 @@
 #include "../misc/tty.hpp"
 #include "../misc/colorizer.hpp"
 
-#include "./commands/systemconfig.hpp"
+#include "./commands/kconfig.hpp"
 #include "./commands/sleep.hpp"
 #include "./commands/help.hpp"
+#include "./commands/echo.hpp"
 
 namespace console
 {
@@ -22,28 +23,40 @@ namespace console
         void start()
         {
             misc::tty tty;
+            src::command::help help;
 
             core::clear();
 
-            tty.setShellPrefix("seed@shell> ");
-
-            core::log(misc::colorizeFont("Seed has sprouted!\n", 180, 180, 40));
-
-            tty.createSystemCommand("help", &src::command::systemHelp);
+            tty.setShellPrefix("seed@shell" + misc::colorizeFont(">", 180, 180, 40) + " ");
 
             tty.createSystemCommand("system", &src::command::systemConfig);
+            help.commandRegister("SYSTEM", "Show system information.");
 
             tty.createSystemCommand("sleep", &src::command::systemSleep);
+            help.commandRegister("SLEEP", "Pause execution of system.");
 
-            tty.createSystemCommand("clear", [&tty](std::vector<std::string> arguments)
+            tty.createSystemCommand("echo", &src::command::systemEcho);
+            help.commandRegister("ECHO", "Print given text.");
+
+            tty.createSystemCommand("help", [&help](std::vector<std::string> arguments)
+            {
+                help.systemHelp(arguments);
+            });
+            help.commandRegister("HELP", "Show list of all system commands.");
+
+            tty.createSystemCommand("clear", [&](std::vector<std::string> arguments)
             {
                 core::clear();
             });
+            help.commandRegister("CLEAR", "Clear shell from all recent information.");
             
             tty.createSystemCommand("exit", [&tty](std::vector<std::string> arguments)
             {
                 tty.exitSystem();
             });
+            help.commandRegister("EXIT", "Shutdown system.");
+
+            core::log(misc::colorizeFont("Seed has sprouted!\n", 180, 180, 40));
 
             tty.startSystem();
         }

@@ -34,9 +34,7 @@ namespace misc
             }
             else
             {
-                Command newCommand = { command, function };
-
-                this->_commands.push_back(newCommand);
+                this->_commands.push_back({command, function});
             }
         }
 
@@ -58,7 +56,7 @@ namespace misc
 
                 if (checkExists == -1)
                 {
-                    core::log("Command not found! Try `help` for more information.");
+                    core::log("Command not found! Try `help` for more information.\n");
                 }
                 else
                 {
@@ -86,6 +84,11 @@ namespace misc
             }
 
             return -1;
+        }
+
+        int commandsCount()
+        {
+            return this->_commands.size();
         }
 
         void setShellPrefix(std::string prefix)

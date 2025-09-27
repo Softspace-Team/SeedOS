@@ -9,7 +9,7 @@
 
 //#include "./Types.h"
 
-//originally by Maksim Ruletow | need to be rewritten
+//originally by Maksim Ruletow
 namespace misc {
     std::vector<std::string> Split (std::string D_String, std::string D_Delimiter) {
         ::size_t
@@ -97,6 +97,31 @@ namespace misc {
     bool IsNumber (const std::string& S_String)
     {
         return !S_String.empty() && std::find_if(S_String.begin(), S_String.end(), [](unsigned char c) { return !std::isdigit(c); }) == S_String.end();
+    }
+
+    std::string JoinStrings (const std::vector<std::string>& D_Vector)
+    {
+        std::string result;
+
+        for (::size_t i = 0; i < D_Vector.size(); i++)
+        {
+            result += D_Vector[i];
+            if (i + 1 < D_Vector.size()) result += " ";
+        }
+
+        return result;
+    }
+
+    std::string ToLowerString (const std::string& S_String)
+    {
+        std::string result;
+
+        for (::size_t i = 0; i < S_String.length(); i++)
+        {
+            result += std::tolower(S_String[i]);
+        }
+
+        return result;
     }
 }
 

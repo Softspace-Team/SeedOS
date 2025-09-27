@@ -17,16 +17,16 @@ namespace src
         {
             if (arguments.size() == 0)
             {
-                core::log("Arguments is empty! Try `help` for more information.");
+                core::log("Arguments is empty! Try `help` for more information.\n");
             }
             else if (misc::IsNumber(arguments.at(0)) == false)
             {
-                core::log("Arguments is not a number! Try `help` for more information.");
+                core::log("Arguments is not a number:" + arguments.at(0) + "\n");
             }
             else
             {
                 int timeForSleep = std::stoi(arguments.at(0)) * 1000;
-                core::log("System is on sleep mode for " + std::to_string(timeForSleep/1000) + " s");
+                core::log("System is on sleep mode for " + std::to_string(timeForSleep/1000) + " s\n");
                 ktime::sleep_ms(timeForSleep);
             }
         }
