@@ -2,10 +2,10 @@
 
 #define UTILITIES_H
 
-#include <vector>
 #include <string>
-#include <algorithm>
+#include <vector>
 #include <cctype>
+#include <algorithm>
 
 //#include "./Types.h"
 

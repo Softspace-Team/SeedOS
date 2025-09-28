@@ -2,12 +2,12 @@
 
 #define COMMAND_SLEEP_H
 
-#include <vector>
 #include <string>
+#include <vector>
 
 #include "../../core/klog.hpp"
-#include "../../time/clock.hpp"
 #include "../../misc/utilities.hpp"
+#include "../../time/clock.hpp"
 
 namespace src
 {
@@ -17,16 +17,16 @@ namespace src
         {
             if (arguments.size() == 0)
             {
-                core::log("Arguments is empty! Try `help` for more information.\n");
+                core::warn("Arguments is empty! Try `help` for more information.\n");
             }
             else if (misc::IsNumber(arguments.at(0)) == false)
             {
-                core::log("Arguments is not a number:" + arguments.at(0) + "\n");
+                core::warn("Arguments is not a number:" + arguments.at(0) + "\n");
             }
             else
             {
                 int timeForSleep = std::stoi(arguments.at(0)) * 1000;
-                core::log("System is on sleep mode for " + std::to_string(timeForSleep/1000) + " s\n");
+                core::print("System is on sleep mode for " + std::to_string(timeForSleep/1000) + " s\n");
                 ktime::sleep_ms(timeForSleep);
             }
         }

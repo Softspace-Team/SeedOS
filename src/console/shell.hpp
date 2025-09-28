@@ -7,13 +7,13 @@
 #include <cstdint>
 
 #include "../core/klog.hpp"
-#include "../misc/tty.hpp"
 #include "../misc/colorizer.hpp"
+#include "../misc/tty.hpp"
 
+#include "./commands/echo.hpp"
+#include "./commands/help.hpp"
 #include "./commands/kconfig.hpp"
 #include "./commands/sleep.hpp"
-#include "./commands/help.hpp"
-#include "./commands/echo.hpp"
 
 namespace console
 {
@@ -25,7 +25,7 @@ namespace console
             misc::tty tty;
             src::command::help help;
 
-            core::clear();
+            tty.clear();
 
             tty.setShellPrefix("seed@shell" + misc::colorizeFont(">", 180, 180, 40) + " ");
 
@@ -46,7 +46,7 @@ namespace console
 
             tty.createSystemCommand("clear", [&](std::vector<std::string> arguments)
             {
-                core::clear();
+                tty.clear();
             });
             help.commandRegister("CLEAR", "Clear shell from all recent information.");
             
@@ -56,7 +56,7 @@ namespace console
             });
             help.commandRegister("EXIT", "Shutdown system.");
 
-            core::log(misc::colorizeFont("Seed has sprouted!\n", 180, 180, 40));
+            core::print(misc::colorizeFont("Seed has sprouted!\n", 180, 180, 40));
 
             tty.startSystem();
         }

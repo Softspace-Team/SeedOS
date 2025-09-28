@@ -2,8 +2,8 @@
 
 #define COMMAND_HELP_H
 
-#include <vector>
 #include <string>
+#include <vector>
 #include <cctype>
 
 #include "../../core/klog.hpp"
@@ -32,10 +32,10 @@ namespace src
             {
                 if (arguments.empty())
                 {
-                    core::log("List of all available commands:\n");
+                    core::print("List of all available commands:\n");
                     for (auto commandItem : this->_commandRegistry)
                     {
-                        core::log(commandItem.name + " - " + commandItem.description + "\n");
+                        core::print(commandItem.name + " - " + commandItem.description + "\n");
                     }
                 }
                 else
@@ -45,12 +45,12 @@ namespace src
                     {
                         if (target == misc::ToLowerString(commandItem.name))
                         {
-                            core::log("Provides Help information for SeedOS commands.\n\n");
-                            core::log("    " + commandItem.name + " - " + commandItem.description + "\n");
+                            core::print("Provides Help information for SeedOS commands.\n\n");
+                            core::print("    " + commandItem.name + " - " + commandItem.description + "\n");
                             return;
                         }
                     }
-                    core::log("No help available for command: " + arguments.at(0) + "\n");
+                    core::warn("No help available for command: " + arguments.at(0) + "\n");
                 }
             }
         };

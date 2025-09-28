@@ -5,20 +5,39 @@
 #include <string>
 #include <iostream>
 
+#include "../misc/colorizer.hpp"
+#include "../time/clock.hpp"
+
 namespace core
 {
-    void log(std::string content)
+    enum class Level { INFO, WARN, ERR, DEBUG };
+
+    const std::string levelToString (Level lvl)
     {
-        std::cout << content;
+        switch (lvl)
+        {
+            case Level::INFO: return misc::colorizeFont("INFO", 180, 180, 40);
+            case Level::WARN: return misc::colorizeFont("WARN", 180, 40, 0);
+            case Level::ERR: return misc::colorizeFont("ERR", 180, 40, 40);
+            case Level::DEBUG: return misc::colorizeFont("DEBUG", 40, 40, 40);
+        }
+        return "?";
     }
-    void input(std::string& inputContent)
+
+    void print (std::string message)
     {
-        std::getline(std::cin, inputContent);
+        std::cout << message;
     }
-    void clear()
+
+    void log (Level lvl, std::string& message)
     {
-        system("cls");
+        std::cout << "[" << levelToString(lvl) << "][" << ktime::systemTime() << "] " << message;
     }
+
+    void info (std::string message) { log(Level::INFO, message); }
+    void warn (std::string message) { log(Level::WARN, message); }
+    void err (std::string message) { log(Level::ERR, message); }
+    void debug (std::string message) { log(Level::DEBUG, message); }
 }
 
 #endif

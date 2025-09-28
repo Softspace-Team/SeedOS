@@ -2,8 +2,8 @@
 
 #define COMMAND_ECHO_H
 
-#include <vector>
 #include <string>
+#include <vector>
 
 #include "../../core/klog.hpp"
 #include "../../misc/utilities.hpp"
@@ -14,7 +14,7 @@ namespace src
     {
         void systemEcho(std::vector<std::string> arguments)
         {
-            core::log(misc::JoinStrings(arguments) + "\n");
+            core::print(misc::JoinStrings(arguments) + "\n");
         }
     }
 }

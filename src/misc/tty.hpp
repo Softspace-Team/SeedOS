@@ -2,8 +2,8 @@
 
 #define TTY_H
 
-#include <vector>
 #include <string>
+#include <vector>
 #include <functional>
 
 #include "../core/klog.hpp"
@@ -46,17 +46,17 @@ namespace misc
                     break;
                 }
 
-                core::log(this->_prefix);
+                core::print(this->_prefix);
 
                 std::string userInput;
-                core::input(userInput);
+                input(userInput);
 
                 std::vector<std::string> parsedCommand = misc::Split(userInput, " ");
                 int checkExists = this->checkSystemCommand(parsedCommand.at(0));
 
                 if (checkExists == -1)
                 {
-                    core::log("Command not found! Try `help` for more information.\n");
+                    core::warn("Command not found! Try `help` for more information.\n");
                 }
                 else
                 {
@@ -67,7 +67,7 @@ namespace misc
                     command.executor(parsedCommand);
                 }
 
-                core::log("\n");
+                core::print("\n");
             }
         }
 
@@ -89,6 +89,16 @@ namespace misc
         int commandsCount()
         {
             return this->_commands.size();
+        }
+
+        void input(std::string& inputContent)
+        {
+            std::getline(std::cin, inputContent);
+        }
+
+        void clear()
+        {
+            system("cls");
         }
 
         void setShellPrefix(std::string prefix)
